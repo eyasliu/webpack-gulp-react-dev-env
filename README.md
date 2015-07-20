@@ -65,7 +65,6 @@ entry中放入口相关的配置，可配置多个入口，打包的时候，会
     }
 
 ####output:打包后输出配置
-
 output中配置打包后的输出配置，比如输出路径，输出文件名.
 
     output:{
@@ -84,13 +83,14 @@ resolve中配置查找模块的规则，可配置需要查找的文件后缀名�
         jquery: path.join(__dirname,'app/vendor/jquery'),
         bootstrap: path.join(__dirname,'app/vendor/bootstrap'),
 
-        people: path.join(__dirname,'app/modules/people')
-        company: path.join(__dirname,'app/modules/company')
-        task: path.join(__dirname,'app/modules/task')
+        people: path.join(__dirname,'app/modules/people'),
+        company: path.join(__dirname,'app/modules/company'),
+        task: path.join(__dirname,'app/modules/task'),
       }
     }
 
-resolve.extensions:如果 require('./bootstrap'),将会依次查找文件{ bootstrap -> bootstrap.js -> bootstrap.jsx -> bootstrap.css }是否存在，如果存在则加载，如果不存在则继续查找下一项配置,最后如果没找到则抛出错误.
+resolve.extensions:如果 require('./bootstrap'),将会依次查找文件{ bootstrap -> bootstrap.js -> bootstrap.jsx -> bootstrap.css  }是否存在，如果存在则加载，如果不存在则继续查找下一项配置,最后如果没找到则抛出错误.
+resolve.alias: 路径的别名，方便引入文件的时候简写.
 
 
 ##Gulp
