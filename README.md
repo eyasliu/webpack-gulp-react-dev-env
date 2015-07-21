@@ -136,15 +136,98 @@ plugins是一个数组，里面是各个插件的实例集合
 
 
 ##Gulp
+在我们的工作流程里，应该尽量减少重复的工作，借助Gulp可以自动帮我们执行我们设置的任务
+
+###安装Gulp
+首先需要全局安装一些gulp，以便能在命令行中使用
+
+    npm install -g gulp
 
 ###新建任务
+在gulp默认配置中，gulp所有任务都是写在 `Gulpfile.js`文件中。所以先在根目录新建一个`Gulpfile.js`文件
+
+####注册一个普通任务
+
+    gulp.task('taskName1',function(){
+      // 任务详情
+    })
+
+####注册一个有依赖的任务
+
+    gulp.task('taskName2',['taskName1','otherTask'],function(){
+      // 任务详情
+    })
 
 ###运行任务
 
+直接运行命令 `gulp` 会执行Gulpfile.js 中注册的名为`default`的任务，
+
+    gulp
+
+运行其他任务，可以使用`gulp 任务名`形式
+
+    gulp taskName
+
+要运行多个任务，直接在后面继续添加任务名
+
+    gulp taskName1 taskName2 taskName3 ....
+
+###Gulp语法
+以压缩css任务为例
+    
+    var minify = require('gulp-minify');
+ 
+    gulp.task('miniCss', function() {
+      gulp.src('lib/*.css')
+        .pipe(minify({
+            exclude: ['tasks'],
+            ignoreFiles: ['.combo.css', '-min.css']
+        }))
+        .pipe(gulp.dest('dist'))
+    });
+
+    gulp.task('watchCss',function(){
+      gulp.watch('lib/*.css',[miniCss]);
+    })
+
+*   `gulp.src()`: globs，可以使用数组处理多个globs，简单地说就是 找出想要处理的文件
+*   `pipe()`: 管道，每个管道里面，你可以指定它的功能，去处理文件
+*   `gulp.dest()`: 把处理好的文件放到指定的地方 
+*   `gulp.watch()`:监听文件，当文件变化后执行任务
 
 ##Webpack + Gulp 搭建 React 开发环境
+我们注册一个可以打包React项目的任务，和一个可以即时预览的任务
+
+目录结构大概为这样子
+
+
+    webpack-gulp
+    |-app/
+    | |-main/
+    | | |-people.js
+    | | |-company.js
+    | | |-file.js
+    | | |-...
+
+
 
 ###依赖库
+
+* gulp
+* gulp-webpack  
+* gulp-util
+* webpack
+* webpack-dev-server  //webpack 开发服务
+* react-hot-loader    //即时预览 react
+* jsx-loader          // 编译jsx
+* babel-loader        // 编译ES6
+* css-loader          // 引入样式时需使用该loader
+* style-loader
+* file-loader
+* url-loader
+
+* react               // 方便引入未编译的 react
+
 
 ###项目架构
 
