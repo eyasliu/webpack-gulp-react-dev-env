@@ -6,7 +6,7 @@ Webpack是一个模块加载器，它把所有的资源都当作是模块，js,c
 官方网址：http://webpack.github.io/
 
 ###CommonJS 与 AMD 的支持
-Webpack 对 CommonJS 的 AMD 的语法做了兼容, 方便迁移代码不过实际上, 引用模块的规则是依据 CommonJS 来的。所以我们可以同时使用 CommonJS 的 AMD 的语法，但建议使用 CommonJS .
+Webpack 对 CommonJS 的 AMD 的语法做了兼容, 方便迁移代码, 不过实际上, 引用模块的规则是依据 CommonJS 来的。所以我们可以同时使用 CommonJS 的 AMD 的语法，但建议使用 CommonJS .
 
 ####CommonJS 语法
 
@@ -95,21 +95,45 @@ resolve.extensions:如果 require('./bootstrap'),将会依次查找文件{ boots
 resolve.alias: 路径的别名，方便引入文件的时候简写.
 
 ####module:使用webpack模块
-Webpack 中的loader是webpack最激动人心的东西，可以让webpack自动的帮我们处理我们的代码，比如解析jsx，编译es6等等。
+module 配置是使用Webpack的模块的地方，其中loader就是这里配置的， Webpack 中的 loader 是 webpack 最激动人心的东西，可以让 webpack  自动的帮我们处理我们的代码， 比如解析 jsx ，编译 es6 等等。
+webpack的loader列表：http://webpack.github.io/docs/list-of-loaders.html
 
     module: {
       loaders:[
-      {
-        test: /\.js$/,
-        loaders: ['babel-loader','jsx-loader'],
-        include:
-      }
+        {
+          test: /\.js$/,
+          loaders: ['babel-loader','jsx-loader?'],
+          include: path.join(__dirname, 'app'),
+          exclude: path.join(__dirname, 'app/vendor')
+        },{
+          test:/\.jsx$/,
+          loader:'babel-loader!jsx-loader?',
+        }
       ]
     }
 
+module.loaders:配置webpack的loader
+
+*   `test`:正则表达式，匹配文件名使用该条规则
+*   `loaders`: 数组，依次是需要使用的loader
+*   `loader`: 字符串，依次是需要使用的loader，各个loader使用 ! 分隔开
+*   `include`: 数组或者字符串，包含的路径
+*   `exclude`: 数组或者字符串，排除的路径
+  
 
 
 ####plugins:使用webpack插件
+plugins 是加载webpack插件的地方，比如uglify、optimize等等
+plugins列表：http://webpack.github.io/docs/list-of-plugins.html
+
+    plugins:[
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.NoErrorsPlugin(),
+      new webpack.WatchIgnorePlugin()
+    ]
+
+plugins是一个数组，里面是各个插件的实例集合
+
 
 ##Gulp
 
