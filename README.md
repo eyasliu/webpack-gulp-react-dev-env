@@ -1,7 +1,7 @@
 #Webpack + Gulp 搭建 React 开发环境
 
 ##webpack
-Webpack是一个模块加载器，它把所有的资源都当作是模块，js,css,图片等等。所以在 Webpack 中，js可以引入CSS，CSS可以嵌入图片。对应各种不同文件类型的资源，Webpack都有对应的loader，比如 JSX 用的 JSX-loader.
+Webpack是一个模块加载器，它把所有的资源都当作是模块，js,css,图片等等。所以在 Webpack 中，js可以引入CSS，CSS可以嵌入图片。对应各种不同文件类型的资源，Webpack都有对应的loader，用于处理资源，比如 JSX 用的 JSX-loader，es6用的babel-loader.
 
 官方网址：http://webpack.github.io/
 
