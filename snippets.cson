@@ -17,7 +17,7 @@
 # If you are unfamiliar with CSON, you can read more about it here:
 # https://github.com/bevry/cson#what-is-cson
 '.source.js':
-  'react import':
+  'react Class':
     'prefix': 'rcc'
     'body': """
     import React from 'react';
@@ -38,6 +38,18 @@
   'import':
     'prefix': 'ip'
     'body': 'import $1 from \'$2\'; '
+  'import React':
+    'prefix': 'iprc'
+    'body': 'import React from \'react\'; '
   'require':
     'prefix':'re'
     'body': 'var $1 = require("$2");'
+
+  'Gulp Task':
+    'prefix': 'gt',
+    'body': """
+    gulp.task('${1:taskName}',function(){
+        ${2:console.log('This is a New task');}
+    })
+
+    """

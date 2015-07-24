@@ -119,7 +119,7 @@ module.loaders:配置webpack的loader
 *   `loader`: 字符串，依次是需要使用的loader，各个loader使用 ! 分隔开
 *   `include`: 数组或者字符串，包含的路径
 *   `exclude`: 数组或者字符串，排除的路径
-  
+
 
 
 ####plugins:使用webpack插件
@@ -174,9 +174,9 @@ plugins是一个数组，里面是各个插件的实例集合
 
 ###Gulp语法
 以压缩css任务为例
-    
+
     var minify = require('gulp-minify');
- 
+
     gulp.task('miniCss', function() {
       gulp.src('lib/*.css')
         .pipe(minify({
@@ -192,7 +192,7 @@ plugins是一个数组，里面是各个插件的实例集合
 
 *   `gulp.src()`: globs，可以使用数组处理多个globs，简单地说就是 找出想要处理的文件
 *   `pipe()`: 管道，每个管道里面，你可以指定它的功能，去处理文件
-*   `gulp.dest()`: 把处理好的文件放到指定的地方 
+*   `gulp.dest()`: 把处理好的文件放到指定的地方
 *   `gulp.watch()`:监听文件，当文件变化后执行任务
 
 ##Webpack + Gulp 搭建 React 开发环境
@@ -201,13 +201,20 @@ plugins是一个数组，里面是各个插件的实例集合
 目录结构大概为这样子
 
 
-    webpack-gulp
-    |-app/
-    | |-main/
-    | | |-people.js
-    | | |-company.js
-    | | |-file.js
-    | | |-...
+    ├─main
+    │      people.js
+    └─modules
+    ├─common
+    └─people
+        │  main.js
+        │
+        ├─components
+        │      Main.js
+        │      Navbar.js
+        │      Sidebar.js
+        │
+        ├─dispather
+        └─store
 
 
 
@@ -229,8 +236,33 @@ plugins是一个数组，里面是各个插件的实例集合
 * react               // 方便引入未编译的 react
 
 
-###项目架构
-
 ###打包任务
 
+
+
+      gulp.task('build',function(){
+          gulp.src('./app/src_dev/main/people.js')
+      			.pipe(gulpWebpack(webpackConfig))
+      			.pipe(gulp.dest('./app/src/'))
+      })
+
+
+
 ###react-hot-loader 实时预览
+
+
+      gulp.task('server',function(){
+      	var port = param.port||8088;
+      	var compiler = webpack(webpackConfig);
+
+      	new webpackDevServer(compiler,{
+      		contentBase:'./app',
+      		hot: true,
+      		headers: { 'Access-Control-Allow-Origin': '*' },
+      		publicPath:'/assets/'
+
+      	}).listen(port,function(err){
+      		util.log('listening: http://localhost:'+port);
+      	})
+
+      })
