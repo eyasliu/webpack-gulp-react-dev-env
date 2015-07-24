@@ -29,14 +29,16 @@ Webpack 对 CommonJS 的 AMD 的语法做了兼容, 方便迁移代码, 不过�
 
     npm install -g webpack
 
-先全局安装webpack，就可以在命令行中使用webpack了。如果当前目录中有webpack的配置文件 config.js ,使用webpack命令运行 webpack 。
+先全局安装webpack，就可以在命令行中使用webpack了。如果当前目录中有webpack的配置文件 webpack.config.js ,使用webpack命令运行 webpack 。
 
-    webpack config.js
+    webpack
 
 运行时还可以加写参数以显示更详细的信息，比如
 
     //显示详细的错误信息
-    webpack config.js --display-error-details  
+    webpack --display-error-details  
+
+运行完后会根据配置信息输出打包后的文件
 
 ###基本配置项
 
